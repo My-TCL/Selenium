@@ -262,7 +262,7 @@ abstract class BasePage
     protected function checkForElement($selector, $errMsg, $strategy = "xpath")
     {
         try {
-            $el = $this->webdriver->findElement($strategy,$selector);
+            $el = $this->webdriver->findElement(WebDriverBy::$strategy($selector));
             $this->testCase->assertNotNull($el, "{$errMsg} for page: '{$this->pageNameAsTitle}'");
             return $el;
         } catch (NoSuchElementException $e) {
