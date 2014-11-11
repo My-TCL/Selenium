@@ -40,12 +40,12 @@ class MyAccountContactUsPage extends MyAccount
     
     public function checkContactForm()
     {
-        $strtgy = LocatorStrategy::id;
-        $this->checkForElement($this->locators['form'], 'Cannot see contact form', $strtgy);
+        $strategy = "id";
+        $this->checkForElement($this->locators['form'], 'Cannot see contact form', $strategy);
         foreach ($this->locators['fields'] as $name => $sel) {
-            $ele = $this->checkForElement($sel, "Cannot see contact form element '{$name}'", $strtgy);
+            $ele = $this->checkForElement($sel, "Cannot see contact form element '{$name}'", $strategy);
             if (in_array($name, $this->prefilled)) {
-                $this->testCase->assertNotEmpty($ele->getValue(),"'{$name}' element should not be empty");
+                $this->testCase->assertNotEmpty($ele->getAttribute("value"),"'{$name}' element should not be empty");
             }
         }
         

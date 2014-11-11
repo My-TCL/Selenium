@@ -57,24 +57,24 @@ class MyAccountLoginPage extends BasePage
 
     public function enterUserId($uid)
     {
-        $element = $this->checkForElement($this->locators['userId'], 'Cannot locate user id input', LocatorStrategy::id);
-        $element->sendKeys(array($uid));
+        $element = $this->checkForElement($this->locators['userId'], 'Cannot locate user id input', "id");
+        $element->sendKeys($uid);
 
         return $this;
     }
 
     public function enterUserEmail($data)
     {
-        $element = $this->checkForElement($this->locators['userId'], 'Cannot locate user id input', LocatorStrategy::id);
-        $element->sendKeys(array($data['email']));
+        $element = $this->checkForElement($this->locators['userId'], 'Cannot locate user id input', "id");
+        $element->sendKeys($data['email']);
 
         return $this;
     }
 
     public function enterUserPassword($password)
     {
-        $element = $this->checkForElement($this->locators['userPassword'], 'Cannot locate user password input', LocatorStrategy::id);
-        $element->sendKeys(array($password));
+        $element = $this->checkForElement($this->locators['userPassword'], 'Cannot locate user password input', "id");
+        $element->sendKeys($password);
 
         return $this;
     }
@@ -118,6 +118,7 @@ class MyAccountLoginPage extends BasePage
     public function checkMultipleAccountErrorMessage()
     {
         $el = $this->checkForElement($this->locators['multipleAccountErrorMessage'], 'Cannot see multiple account error message');
+        //TODO:: Where is this $data variable comming from?
         $this->testCase->assertEquals($data['multipleAccountError'],
                 $el->getText());
 
@@ -126,7 +127,7 @@ class MyAccountLoginPage extends BasePage
 
     public function clickButton()
     {
-        $element = $this->checkForElement($this->locators['submitButtonName'], 'Cannot locate logon submit button', LocatorStrategy::name);
+        $element = $this->checkForElement($this->locators['submitButtonName'], 'Cannot locate logon submit button', "name");
         $element->click();
 
         return $this;

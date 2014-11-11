@@ -71,7 +71,7 @@ class OECrawlTest extends CWebDriverTestCase {
         //data
         $dataProvider =   new WebsiteDataProvider(DATAFILE,DATADIR);
         $this->userData = $dataProvider->getTestData();
-        $this->webdriver->setImplicitWaitTimeout($this->defaultTimeoutForFinds);
+        $this->webdriver->manage()->timeouts()->implicitlyWait($this->defaultTimeoutForFinds);
         //Page objects
         $this->pageObject = new FreePage($this->webdriver, $this, LOCATION);
 

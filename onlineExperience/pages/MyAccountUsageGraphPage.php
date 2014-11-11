@@ -12,6 +12,9 @@
  */
 class MyAccountUsageGraphPage {
 
+    /**
+     * @var RemoteWebDriver
+     */
     protected $webdriver;
 
     private $locators = array(
@@ -26,34 +29,34 @@ class MyAccountUsageGraphPage {
 
     );
 
-    public function __construct($webdriver) {
+    public function __construct(\RemoteWebDriver $webdriver) {
         $this->webdriver = $webdriver;
     }
 
     public function open($graphType)
     {
         $this->webdriver->get(BASEURL. $this->locators[$graphType]);
-        $this->webdriver->setImplicitWaitTimeout(10000); //allow for page to load
+        $this->webdriver->manage()->timeouts()->implicitlyWait(10000); //allow for page to load
     }
 
     public function verifyElecUsagePageIsLoaded($test) {
-   		$headerEl = $this->webdriver->findElementBy(LocatorStrategy::xpath,$this->locators['usageHeader']);
+   		$headerEl = $this->webdriver->findElement(WebDriverBy::xpath($this->locators['usageHeader']));
     	$test->assertNotNull($headerEl);
 
-    	$usageBtnEl = $this->webdriver->findElementBy(LocatorStrategy::xpath,$this->locators['usageDownloadBtn']);
+    	$usageBtnEl = $this->webdriver->findElement(WebDriverBy::xpath($this->locators['usageDownloadBtn']));
     	$test->assertNotNull($usageBtnEl);
     }
 
     public function verifyGasUsagePageIsLoaded($test) {
-        $headerEl = $this->webdriver->findElementBy(LocatorStrategy::xpath,$this->locators['usageHeader']);
+        $headerEl = $this->webdriver->findElement(WebDriverBy::xpath($this->locators['usageHeader']));
     	$test->assertNotNull($headerEl);
 
-    	$usageBtnEl = $this->webdriver->findElementBy(LocatorStrategy::xpath,$this->locators['usageDownloadBtn']);
+    	$usageBtnEl = $this->webdriver->findElement(WebDriverBy::xpath($this->locators['usageDownloadBtn']));
     	$test->assertNotNull($usageBtnEl);
     }
 
     public function clickSignOut() {
-        $element = $this->webdriver->findElementBy(LocatorStrategy::xpath, $this->locators['signOut']);
+        $element = $this->webdriver->findElement(WebDriverBy::xpath($this->locators['signOut']));
         $element->click();
     }
 

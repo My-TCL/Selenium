@@ -27,7 +27,7 @@ class MyAccountCot extends CWebDriverTestCase {
 
     public function testSubmitMeterRead()
     {
-        $myAccountLoginPage = new MyAccountLoginPage($this->webdriver);
+        $myAccountLoginPage = new MyAccountLoginPage($this->webdriver, $this);
         $myAccountLoginPage->open();
         $myAccountLoginPage->verifyPageIsLoaded($this);
         $myAccountLoginPage->enterUserId($this->userData);
@@ -36,7 +36,7 @@ class MyAccountCot extends CWebDriverTestCase {
         $myAccountLoginPage->verifyDashboardPageIsLoaded($this);
 
         //navigate to Cot page for testing
-        $myAccountCotPage = new MyAccountCotPage($this->webdriver);
+        $myAccountCotPage = new MyAccountCotPage($this->webdriver, $this);
         $myAccountCotPage->open();
         $myAccountCotPage->verifySuccessfulCotRequest($this);
 

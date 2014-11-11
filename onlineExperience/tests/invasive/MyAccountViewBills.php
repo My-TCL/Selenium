@@ -27,7 +27,7 @@ class MyAccountViewBills extends CWebDriverTestCase {
 
     public function testViewBills()
     {
-        $myAccountLoginPage = new MyAccountLoginPage($this->webdriver);
+        $myAccountLoginPage = new MyAccountLoginPage($this->webdriver, $this);
         $myAccountLoginPage->open();
         $myAccountLoginPage->verifyPageIsLoaded($this);
         $myAccountLoginPage->enterUserId($this->userData);

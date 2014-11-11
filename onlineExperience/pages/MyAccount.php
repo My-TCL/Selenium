@@ -29,8 +29,7 @@ abstract class MyAccount extends BasePage
 
     public function clickSignOut()
     {
-        $element = $this->webdriver->findElementBy(LocatorStrategy::xpath,
-                $this->locators['signOut']);
+        $element = $this->webdriver->findElement(WebDriverBy::xpath($this->locators['signOut']));
         $this->testCase->assertNotNull($element, 'Cannot find logout menu entry');
         $element->click();
 

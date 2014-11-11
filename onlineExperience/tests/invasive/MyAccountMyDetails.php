@@ -26,7 +26,7 @@ class MyAccountSubmitReading extends CWebDriverTestCase {
 
     public function testMyDetails()
     {
-        $myAccountLoginPage = new MyAccountLoginPage($this->webdriver);
+        $myAccountLoginPage = new MyAccountLoginPage($this->webdriver, $this);
         $myAccountLoginPage->open();
         $myAccountLoginPage->verifyPageIsLoaded($this);
         $myAccountLoginPage->enterUserId($this->userData);
@@ -34,7 +34,7 @@ class MyAccountSubmitReading extends CWebDriverTestCase {
         $myAccountLoginPage->clickButton();
         $myAccountLoginPage->verifyDashboardPageIsLoaded($this);
 
-        $myAccountMyDetailsPage = new MyAccountMyDetailsPage($this->webdriver);
+        $myAccountMyDetailsPage = new MyAccountMyDetailsPage($this->webdriver, $this);
         $myAccountMyDetailsPage->open();
         $myAccountMyDetailsPage->verifyPageIsLoaded($this);
         $myAccountMyDetailsPage->verifyChangeOfPersonalDetails($this);

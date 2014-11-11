@@ -122,7 +122,8 @@ class MyAccountMyDetailsPage extends MyAccount
         //confirm success
         $this->setDefaultTimeoutForFinds(10000);
         $this->checkForElement($this->locators['lightBoxSuccess'],'Success lightbox not seen');
-        $this->setDefaultTimeoutForFinds();
+        //TODO:Fix this missing parameter??
+        $this->setDefaultTimeoutForFinds(5000);
 
         //close lightbox
         $this->checkForElement($this->locators['lightboxClose'], 'Success lightbox button not found')
@@ -132,7 +133,7 @@ class MyAccountMyDetailsPage extends MyAccount
     protected function changeHomeTelNum()
     {
         $ele = $this->checkForElement($this->locators['homeTelNum'], 'Home telephone input not found');
-        $telnum =  $userEmailAddressEl->getAttribute('value');
+        $telnum =  $ele->getAttribute('value');
         if ($telnum != '') {
             //save for later
             $this->validationData['telnum'] = $telnum;

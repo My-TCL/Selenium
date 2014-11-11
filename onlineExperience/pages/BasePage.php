@@ -16,7 +16,7 @@ abstract class BasePage
 
     /**
      *
-     * @var \WebDriver
+     * @var \RemoteWebDriver
      */
     protected $webdriver;
 
@@ -28,7 +28,7 @@ abstract class BasePage
 
     /**
      * Base uri for page
-     * Overide in your ancestor
+     * Override in your ancestor
      * @var string
      */
     protected $baseUri;
@@ -59,7 +59,7 @@ abstract class BasePage
      */
     protected $debug = false;
 
-    public function __construct(\WebDriver $webdriver, \CWebDriverTestCase $testCase, $environment) {
+    public function __construct(\RemoteWebDriver $webdriver, \CWebDriverTestCase $testCase, $environment = array()) {
         $this->webdriver = $webdriver;
         $this->testCase = $testCase;
         $this->setPageNameAsTitle();
@@ -74,7 +74,7 @@ abstract class BasePage
      */
     public function setDefaultTimeoutForFinds($timeout)
     {
-        $this->webdriver->setImplicitWaitTimeout($timeout);
+        $this->webdriver->manage()->timeouts()->implicitlyWait($timeout);
 
         return $this;
     }
@@ -151,7 +151,7 @@ abstract class BasePage
     public function isErrorPage()
     {
         try {
-            $el = $this->webdriver->findElementBy('xpath',$this->locators['errorBodyTag']);
+            $el = $this->webdriver->findElement(WebDriverBy::xpath($this->locators['errorBodyTag']));
             if ($el) {
                 return true;
             }
@@ -168,8 +168,12 @@ abstract class BasePage
      */
     public function getErrorStatusCode()
     {
-        $el = $this->webdriver->findElementBy('xpath',$this->locators['statusCode']);
-        $this->testCase->assertNotNull($el, "Not an error page, so cannot get status code");
+        try{
+            $el = $this->webdriver->findElement(WebDriverBy::xpath($this->locators['statusCode']));
+        }catch (NoSuchElementException $ex) {
+            $el = Null;
+            $this->testCase->assertNotNull($el, "Not an error page, so cannot get status code");
+        }
         $matches = array();
         if (preg_match('/.*\((?P<sc>\d+)\)/', $el->getText(), $matches) == 1) {
             return $matches['sc'];
@@ -197,8 +201,8 @@ abstract class BasePage
      * Will sleep 1/2 second between subsequent attempts
      *
      * @param int $timeout millisecond time to wait
-     * @param boolean $throwException Throw exception if page not lodaed else return boolean
-     * @return boolen return test value if $throwException == false
+     * @param boolean $throwException Throw exception if page not loaded else return boolean
+     * @return boolean return test value if $throwException == false
      */
     protected function waitForUri($timeout = 10000, $throwException = true)
     {
@@ -206,11 +210,11 @@ abstract class BasePage
     }
 
     /**
-     * Wait for aspecified page uri to respond
+     * Wait for a specified page uri to respond
      *
      * @param string $uri
      * @param int $timeout millisecond time to wait
-     * @param boolean $throwException Throw exception if page not lodaed else return boolean
+     * @param boolean $throwException Throw exception if page not loaded else return boolean
      * @return boolen return test value if $throwException == false
      */
     protected function checkForUri($uri, $timeout = 10000, $throwException = true)
@@ -252,12 +256,13 @@ abstract class BasePage
      *
      * @param string $selector
      * @param string $errMsg
-     * @return \WebElement
+     * @param string $strategy
+     * @return \RemoteWebElement
      */
-    protected function checkForElement($selector, $errMsg, $strategy = LocatorStrategy::xpath)
+    protected function checkForElement($selector, $errMsg, $strategy = "xpath")
     {
         try {
-            $el = $this->webdriver->findElementBy($strategy,$selector);
+            $el = $this->webdriver->findElement($strategy,$selector);
             $this->testCase->assertNotNull($el, "{$errMsg} for page: '{$this->pageNameAsTitle}'");
             return $el;
         } catch (NoSuchElementException $e) {

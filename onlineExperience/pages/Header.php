@@ -78,10 +78,12 @@ class Header extends MyAccount
 
     /**
      * Check that a menu link is there and displays
-     * @param array $item
+     * @param string $uri
+     * @param string $label
      */
     protected function checkMenuLink($uri, $label)
     {
+        //TODO: What is this $uri for?
         $xpath = "//ul[@class='main_nav']//a[contains(text(), '{$label}')]";
         $link = $this->checkForElement($xpath, "Cannot find menu link '{$label}'");
         $link->click();

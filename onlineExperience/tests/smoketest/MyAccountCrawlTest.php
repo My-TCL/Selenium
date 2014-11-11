@@ -85,7 +85,7 @@ class MyAccountCrawlTest extends CWebDriverTestCase {
         //data
         $dataProvider =   new WebsiteDataProvider(DATAFILE,DATADIR);
         $this->userData = $dataProvider->getTestData();
-        $this->webdriver->setImplicitWaitTimeout($this->defaultTimeoutForFinds);
+        $this->webdriver->manage()->timeouts()->implicitlyWait($this->defaultTimeoutForFinds);
         //Page objects
         $this->loginPage = new MyAccountLoginPage($this->webdriver, $this, LOCATION);
         $this->readsPage = new MyAccountSubmitReadingPage($this->webdriver, $this, LOCATION);

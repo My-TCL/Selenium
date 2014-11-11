@@ -45,12 +45,12 @@ class MyAccountCotPage extends MyAccount
 
     public function checkCotForm()
     {
-        $strtgy = LocatorStrategy::id;
+        $strategy = "id";
         $elements = $this->locators['cotForm'];
         $sel = array_shift($elements);
-        $this->checkForElement($sel, 'Cannot see COT form', $strtgy);
+        $this->checkForElement($sel, 'Cannot see COT form', $strategy);
         foreach ($elements as $name => $sel) {
-            $this->checkForElement($sel, "Cannot see COT form element '{$name}'", $strtgy);
+            $this->checkForElement($sel, "Cannot see COT form element '{$name}'", $strategy);
         }
         
         return $this;
@@ -62,16 +62,16 @@ class MyAccountCotPage extends MyAccount
         $dt = new \DateTime();
         $dt->add(new \DateInterval('P1D'));
         $readDate = $dt->format('d/m/Y');
-        $readDateElement = $this->webdriver->findElementBy(LocatorStrategy::id, $this->locators['moveDate']);
-        $readDateElement->sendKeys(array((string) $readDate));
+        $readDateElement = $this->webdriver->findElement(WebDriverBy::id($this->locators['moveDate']));
+        $readDateElement->sendKeys((string) $readDate);
 
         //submit form
-        $submitElement = $this->webdriver->findElementBy(LocatorStrategy::xpath, $this->locators['submit']);
+        $submitElement = $this->webdriver->findElement(WebDriverBy::xpath($this->locators['submit']));
         $submitElement->click();
 
         //confirm success
-        $this->webdriver->setImplicitWaitTimeout(10000);
-        $element = $this->webdriver->findElementBy(LocatorStrategy::xpath, $this->locators['successMessageFinder']);
+        $this->webdriver->manage()->timeouts()->implicitlyWait(10000);
+        $element = $this->webdriver->findElement(WebDriverBy::xpath($this->locators['successMessageFinder']));
         $test->assertTrue(
                 preg_match("/" . $this->validationData['cotSuccessPattern'] . "/", $element->getText()) > 0
         );

@@ -14,6 +14,7 @@
 	],
 	"autoload" : {
 		"classmap" : [
+            "lib/",
 			"onlineExperience/pages/",
 			"onlineExperience/utils/"
 		]

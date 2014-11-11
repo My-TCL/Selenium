@@ -27,7 +27,7 @@ class MyAccountSubmitReading extends CWebDriverTestCase {
 
     public function testSubmitMeterRead()
     {
-        $myAccountLoginPage = new MyAccountLoginPage($this->webdriver);
+        $myAccountLoginPage = new MyAccountLoginPage($this->webdriver, $this);
         $myAccountLoginPage->open();
         $myAccountLoginPage->verifyPageIsLoaded($this);
         $myAccountLoginPage->enterUserId($this->userData);
@@ -36,7 +36,7 @@ class MyAccountSubmitReading extends CWebDriverTestCase {
         $myAccountLoginPage->verifyDashboardPageIsLoaded($this);
 
         //navigate to Submit Reading for testing
-        $myAccountSubmitReadingPage = new MyAccountSubmitReadingPage($this->webdriver);
+        $myAccountSubmitReadingPage = new MyAccountSubmitReadingPage($this->webdriver, $this);
         $myAccountSubmitReadingPage->open();
         $myAccountSubmitReadingPage->verifyElecTabIsClickable($this);
         $myAccountSubmitReadingPage->verifyGasTabIsClickable($this);

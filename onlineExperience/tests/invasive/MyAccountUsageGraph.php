@@ -28,7 +28,7 @@ class MyAccountUsageGraph extends CWebDriverTestCase {
 
     public function testUsageGraph()
     {
-        $myAccountLoginPage = new MyAccountLoginPage($this->webdriver);
+        $myAccountLoginPage = new MyAccountLoginPage($this->webdriver, $this);
         $myAccountLoginPage->open();
         $myAccountLoginPage->verifyPageIsLoaded($this);
         $myAccountLoginPage->enterUserId($this->userData);

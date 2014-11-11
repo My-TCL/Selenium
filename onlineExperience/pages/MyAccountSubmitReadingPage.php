@@ -33,7 +33,7 @@ class MyAccountSubmitReadingPage extends MyAccount
 
     public function verifyElecTabIsClickable()
     {
-        $tab = $this->webdriver->findElementBy(LocatorStrategy::xpath, '//ul[@data-tabs="nav"]/li/a[text() = "Electricity"]');
+        $tab = $this->webdriver->findElement(WebDriverBy::xpath('//ul[@data-tabs="nav"]/li/a[text() = "Electricity"]'));
         $this->testCase->assertNotNull($tab);
 
         return $this;
@@ -41,7 +41,7 @@ class MyAccountSubmitReadingPage extends MyAccount
 
     public function verifyGasTabIsClickable()
     {
-        $tab = $this->webdriver->findElementBy(LocatorStrategy::xpath, '//ul[@data-tabs="nav"]/li/a[text() = "Gas"]');
+        $tab = $this->webdriver->findElement(WebDriverBy::xpath('//ul[@data-tabs="nav"]/li/a[text() = "Gas"]'));
         $this->testCase->assertNotNull($tab);
 
         return $this;
@@ -49,17 +49,17 @@ class MyAccountSubmitReadingPage extends MyAccount
 
     public function verifySuccessfulElectricityReadSubmission()
     {
-        $tab = $this->webdriver->findElementBy(LocatorStrategy::xpath, '//ul[@data-tabs="nav"]/li/a[text() = "Electricity"]');
+        $tab = $this->webdriver->findElement(WebDriverBy::xpath('//ul[@data-tabs="nav"]/li/a[text() = "Electricity"]'));
         //click tab
         $tab->click();
 
         //get reads advice
-        $readsAdviceNode = $this->webdriver->findElementBy(LocatorStrategy::xpath,
-                "//form[contains(@class, 'MPAN')]/fieldset/div[@class='form-item']//small[contains(@data-bind,'displayReadsGuide')]");
+        $readsAdviceNode = $this->webdriver->findElement(WebDriverBy::xpath(
+                "//form[contains(@class, 'MPAN')]/fieldset/div[@class='form-item']//small[contains(@data-bind,'displayReadsGuide')]"));
         $readsGuide = json_decode(str_replace("displayReadsGuide:", "", $readsAdviceNode->getAttribute("data-bind")));
 
         //enter read
-        $readElement = $this->webdriver->findElementBy(LocatorStrategy::id, $readsGuide->id);
+        $readElement = $this->webdriver->findElement(WebDriverBy::id($readsGuide->id));
         $newRead = (string)(str_pad($readsGuide->min + 1, $readsGuide->digits, "0", STR_PAD_LEFT));
         $readElement->sendKeys(array($newRead));
 
@@ -67,15 +67,15 @@ class MyAccountSubmitReadingPage extends MyAccount
         $dt = new \DateTime();
         $dt->sub(new \DateInterval('P1D')); //use yesterdays date
         $readDate = $dt->format('d/m/Y');
-        $readDateElement = $this->webdriver->findElementBy(LocatorStrategy::id, $this->locators['elecDate']);
+        $readDateElement = $this->webdriver->findElement(WebDriverBy::id($this->locators['elecDate']));
         $readDateElement->sendKeys(array((string)$readDate));
 
         //submit form
-        $submitElement = $this->webdriver->findElementBy(LocatorStrategy::xpath, $this->locators['elecSubmitBtn']);
+        $submitElement = $this->webdriver->findElement(WebDriverBy::xpath($this->locators['elecSubmitBtn']));
         $submitElement->click();
 
         //confirm success
-        $successElement = $this->webdriver->findElementBy(LocatorStrategy::xpath, "//span[@class='sprite-me success']");
+        $successElement = $this->webdriver->findElement(WebDriverBy::xpath("//span[@class='sprite-me success']"));
         $this->testCase->assertNotNull($successElement);
 
         return $this;
@@ -83,17 +83,17 @@ class MyAccountSubmitReadingPage extends MyAccount
 
     public function verifySuccessfulGasReadSubmission()
     {
-        $tab = $this->webdriver->findElementBy(LocatorStrategy::xpath, '//ul[@data-tabs="nav"]/li/a[text() = "Gas"]');
+        $tab = $this->webdriver->findElement(WebDriverBy::xpath('//ul[@data-tabs="nav"]/li/a[text() = "Gas"]'));
         //click tab
         $tab->click();
 
         //get reads advice
-        $readsAdviceNode = $this->webdriver->findElementBy(LocatorStrategy::xpath,
-                "//form[contains(@class, 'MPRN')]/fieldset/div[@class='form-item']//small[contains(@data-bind,'displayReadsGuide')]");
+        $readsAdviceNode = $this->webdriver->findElement(WebDriverBy::xpath(
+                "//form[contains(@class, 'MPRN')]/fieldset/div[@class='form-item']//small[contains(@data-bind,'displayReadsGuide')]"));
         $readsGuide = json_decode(str_replace("displayReadsGuide:", "", $readsAdviceNode->getAttribute("data-bind")));
 
         //enter read
-        $readElement = $this->webdriver->findElementBy(LocatorStrategy::id, $readsGuide->id);
+        $readElement = $this->webdriver->findElement(WebDriverBy::id($readsGuide->id));
         $newRead = (string)(str_pad($readsGuide->min + 1, $readsGuide->digits, "0", STR_PAD_LEFT));
         $readElement->sendKeys(array($newRead));
 
@@ -101,19 +101,19 @@ class MyAccountSubmitReadingPage extends MyAccount
         $dt = new \DateTime();
         $dt->sub(new \DateInterval('P1D')); //use yesterdays date
         $readDate = $dt->format('d/m/Y');
-        $readDateElement = $this->webdriver->findElementBy(LocatorStrategy::id, $this->locators['gasDate']);
+        $readDateElement = $this->webdriver->findElement(WebDriverBy::id($this->locators['gasDate']));
         $readDateElement->sendKeys(array((string)$readDate));
 
         //submit form
-        $submitElement = $this->webdriver->findElementBy(LocatorStrategy::xpath, $this->locators['gasSubmitBtn']);
+        $submitElement = $this->webdriver->findElement(WebDriverBy::xpath($this->locators['gasSubmitBtn']));
         $submitElement->click();
 
         //confirm success
-        $successElement = $this->webdriver->findElementBy(LocatorStrategy::xpath, "//span[@class='sprite-me success']");
+        $successElement = $this->webdriver->findElement(WebDriverBy::xpath("//span[@class='sprite-me success']"));
         $this->testCase->assertNotNull($successElement);
 
         //close lightbox
-        $this->webdriver->findElementBy(LocatorStrategy::xpath,$this->locators['lightboxClose'])->click();
+        $this->webdriver->findElement(WebDriverBy::xpath($this->locators['lightboxClose']))->click();
 
         return $this;
     }
