@@ -1,0 +1,25 @@
+{
+	"name" : "first-utility/fu-selenium",
+	"description" : "Description of project fu-selenium.",
+	"authors" : [{
+			"name" : "Leigh Mills",
+			"email" : "leigh.mills@first-utility.com"
+		}, {
+			"name" : "Bade Adegboye",
+			"email" : "bade.adegboye@first-utility.com"
+		}, {
+			"name" : "Ashley Kitson",
+			"email" : "ashley.kitson@first-utility.com"
+		}
+	],
+	"autoload" : {
+		"classmap" : [
+			"onlineExperience/pages/",
+			"onlineExperience/utils/"
+		]
+	},
+	"require" : {
+		"phpunit/phpunit" : "4.1.3",
+		"facebook/webdriver": "dev-master"
+	}
+}
