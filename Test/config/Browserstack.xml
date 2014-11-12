@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<phpunit
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:noNamespaceSchemaLocation='http://schema.phpunit.de/3.7/phpunit.xsd'
+    bootstrap='../bootstrap.php'
+>
+    <php>
+        <var name='SELHOST' 	value='http://elyochola1:Fh1yxtwN4bKGomss9fqQ@hub.browserstack.com/wd/hub'/>
+        <var name='CAPABILITY' value='{"browser":"Chrome", "browser_version":"36.0", "os":"Windows", "os_version":"7", "resolution":"1024x768", "browserstack.debug":true, "browserstack.local":true}'/>
+        <var name="TIMEOUT_MS" value="10000"/>
+        <var name='LOCATION' 	value='Browserstack'/>
+        <var name="BROWSERSTACK_LOCAL_KEY" value="Fh1yxtwN4bKGomss9fqQ"/>
+        <var name="BROWSERSTACK_HOST" value="localhost"/>
+        <var name="BROWSERSTACK_PORT" value="3000"/>
+        <var name='BASEURL' 	value='http://oeweb01.stage.impello.co.uk'/>
+        <var name='DATADIR' 	value='../data/'/>
+        <var name='DATAFILE'  value='MyAccountCrawlDataUAT'/>
+    </php>
+</phpunit>

@@ -36,6 +36,17 @@ class CWebDriverTestCase extends PHPUnit_Framework_TestCase
     const STEP_WAITING_TIME = 0.5; // when synchronous request is simulated this is single step waiting time
     const MAX_WAITING_TIME = 4; // when synchronous request is simulated this is total timeout when writing for result
 
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->webdriver = RemoteWebDriver::create(
+            $GLOBALS['SELHOST'],
+            json_decode($GLOBALS['CAPABILITY'], true),
+            $GLOBALS['TIMEOUT_MS']);
+    }
+
+    /* OLD setUp Method
     protected function setUp($host = '127.0.0.1', $port = 4444, $browser = 'firefox', $cap = NULL)
     {
         parent::setUp();
@@ -59,12 +70,15 @@ class CWebDriverTestCase extends PHPUnit_Framework_TestCase
 
         $this->webdriver = RemoteWebDriver::create("http://{$host}:$port/wd/hub/", $cap);
     }
+    */
 
     protected function tearDown()
     {
         if ($this->webdriver) {
             $this->webdriver->quit();
         }
+
+        parent::tearDown();
     }
 
     public function refresh()
