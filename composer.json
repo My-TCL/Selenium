@@ -15,8 +15,8 @@
 	"autoload" : {
 		"classmap" : [
             "lib/",
-			"onlineExperience/pages/",
-			"onlineExperience/utils/"
+			"Test/pages/",
+			"Test/utils/"
 		]
 	},
 	"require" : {
